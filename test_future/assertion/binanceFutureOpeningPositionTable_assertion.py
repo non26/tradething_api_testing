@@ -30,3 +30,6 @@ class BinanceFutureOpeningPositionTableAssertion:
 
     def assertCreatedAt(self) -> None:
         assert self.response[self._createdAtKey] != ""
+
+    def assertEmpty(self) -> None:
+        assert self.response == {}

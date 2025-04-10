@@ -71,6 +71,13 @@ class OpenPosition:
         self.bnFutureOpeningPositionAssert.assertQuantity(str(request[self._amountBaseKey]))
         self.bnFutureOpeningPositionAssert.assertPositionSide(request[self._positionSideKey])
         self.bnFutureOpeningPositionAssert.assertCreatedAt()
+
+    def binanceFutureOpeningPositionAssertionsForEmpty(self, symbol: str, positionSide: str):
+        response = self.bnFutureOpeningPositionTable.get(symbol=symbol, position_side=positionSide)
+        self.bnFutureOpeningPositionTableAssert.setResponse(response)
+        # assert
+        self.bnFutureOpeningPositionAssert.assertEmpty()
+
     
     def binanceFutureHistoryAssertions(self, clientId: str, request: dict):
         response= self.bnFutureHistoryTable.get(client_id=clientId)
@@ -80,5 +87,6 @@ class OpenPosition:
         self.bnFutureHistoryAssert.assertSymbol(request[self._symbolKey])
         self.bnFutureHistoryAssert.assertPositionSide(request[self._positionSideKey])
         self.bnFutureHistoryAssert.assertCreatedAt()
+
     
     
