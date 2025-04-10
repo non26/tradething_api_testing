@@ -1,3 +1,4 @@
+from decimal import Decimal
 class BinanceServiceAssertion:
     _positionSideKey = "positionSide"
     _positionAmountKey = "positionAmount"
