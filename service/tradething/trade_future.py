@@ -21,7 +21,7 @@ class TradethingFuture:
         return response
     
     def _send_request(self, body: dict | list[dict], path: str) -> Response:
-        response: Response = requests.post(self._trade_thing_url + path, json=body)
+        response: Response = requests.post(self._trade_thing_url + path, json=body, timeout=10)
         return response
     
     
