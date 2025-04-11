@@ -1,5 +1,7 @@
 from requests import Response
 from typing import Callable      
+from service.dynamodb.dynamodb import DynamoDB
+from service.bn.binance import BinanceUMFutures
 from service.bn.future.trade import BnUMFuturesTrade
 from service.dynamodb.future.bn_future_crypto_table import BNFutureCryptoTable
 from service.dynamodb.future.bn_future_history_table import BNFutureHistoryTable
@@ -20,15 +22,15 @@ class OpenPosition:
     _side_key = "side"
     
     
-    def __init__(self) -> None:
+    def __init__(self, dynamodb: DynamoDB, bn_service:BinanceUMFutures) -> None:
         self.tradething_response: Response = None
         # dynamodb attribute
-        self.bn_future_history_table = BNFutureHistoryTable()
-        self.bn_future_opening_position_table = BNFutureOpeningPositionTable()
-        self.bn_future_crypto_table = BNFutureCryptoTable()
+        self.bn_future_history_table = BNFutureHistoryTable(dynamodb)
+        self.bn_future_opening_position_table = BNFutureOpeningPositionTable(dynamodb)
+        self.bn_future_crypto_table = BNFutureCryptoTable(dynamodb)
         self.bn_future_crypto_table_before_action: list[dict] = [] 
         # binance service attribute
-        self.bn_service = BnUMFuturesTrade()
+        self.bn_service = BnUMFuturesTrade(bn_service)
         # trade attribute
         self.tradething_future = TradethingFuture()
         # assertion attribute
@@ -57,7 +59,7 @@ class OpenPosition:
         self.bn_service_assertion.assert_position_side(request[self._position_side_key])
 
     def binance_future_crypto_assertions(self, symbol: str, request: dict, expected_long:int, expected_short:int):
-        respone = self.bn_future_crypto_table.get(symbol=symbol)
+        response = self.bn_future_crypto_table.get(symbol=symbol)
         self.bn_future_crypto_table_assert.set_response(response)
         # assert
         self.bn_future_crypto_table_assert.assert_symbol(request[self._symbol_key])
