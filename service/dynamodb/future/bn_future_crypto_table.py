@@ -12,32 +12,34 @@ class BNFutureCryptoTable(DynamoDBTable):
         """
         get the item from the table by keys: symbol={symbol}
         """
-        symbolKey = "symbol"
-        response: dict = self.table.get_item(Key={'symbol': keys[symbolKey].upper()})
-        if 'Item' in response:
-            self.content = response['Item']
+        symbol_key = "symbol"
+        response: dict = self.table.get_item(Key={"symbol": keys[symbol_key].upper()})
+        if "Item" in response:
+            self.content = response["Item"]
+            return self.content
         else:
             self.content = {}
+            return self.content
 
-    def getSymbolField(self) -> str:
+    def get_symbol_field(self) -> str:
         symbol = "symbol"
-        return self._getFieldFromContent(symbol)
+        return self._get_field_from_content(symbol)
     
-    def getCountingLongField(self) -> int:
-        countingLong = "counting_long"
-        return self._getFieldIntFromContent(countingLong)
+    def get_counting_long_field(self) -> int:
+        counting_long = "counting_long"
+        return self._get_field_int_from_content(counting_long)
     
-    def getCountingShortField(self) -> int:
-        countingShort = "counting_short"
-        return self._getFieldIntFromContent(countingShort)
+    def get_counting_short_field(self) -> int:
+        counting_short = "counting_short"
+        return self._get_field_int_from_content(counting_short)
         
-    def _getFieldFromContent(self, key: str) -> str:
+    def _get_field_from_content(self, key: str) -> str:
         if key in self.content:
             return self.content[key]
         else:
             return ""
     
-    def _getFieldIntFromContent(self, key: str) -> int:
+    def _get_field_int_from_content(self, key: str) -> int:
         if key in self.content:
             return self.content[key]
         else:

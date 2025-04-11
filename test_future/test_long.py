@@ -3,7 +3,13 @@ from test_future.test_future import OpenPosition
 
 
 def test_open_long_single_position():
-    pass
+   long = {
+    "position_side": "LONG",
+    "side": "SELL",
+    "amount_b": "0.03",
+    "symbol": "BTCUSDT",
+    "client_id": "test_btc_long_1"
+       }
 
 def test_close_long_multiple_position():
     pass

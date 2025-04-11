@@ -1,27 +1,24 @@
 
 class BinanceFutureHistoryTableAssertion:
-    _clientIdKey = "client_id"
-    _symbolKey = "symbol"
-    _positionSideKey = "position_side"
-    _createdAtKey = "created_at"
-
-    def __init__(self, response: dict) -> None:         
-        self.response    = response
+    _client_id_key = "client_id"
+    _symbol_key = "symbol"
+    _position_side_key = "position_side"
+    _created_at_key = "created_at"
 
     def __init__(self) -> None:         
         self.response    = {}
     
-    def setResponse(self, response: dict) -> None:
+    def set_response(self, response: dict) -> None:
         self.response = response
 
-    def assertClientId(self, expected_client_id: str) -> None:
-        assert self.response[self._clientIdKey] == expected_client_id
+    def assert_client_id(self, expected_client_id: str) -> None:
+        assert self.response[self._client_id_key] == expected_client_id
 
-    def assertSymbol(self, expected_symbol: str) -> None:
-        assert self.response[self._symbolKey] == expected_symbol
+    def assert_symbol(self, expected_symbol: str) -> None:
+        assert self.response[self._symbol_key] == expected_symbol
     
-    def assertPositionSide(self, expected_position_side: str) -> None:
-        assert self.response[self._positionSideKey] == expected_position_side
+    def assert_position_side(self, expected_position_side: str) -> None:
+        assert self.response[self._position_side_key] == expected_position_side
 
-    def assertCreatedAt(self) -> None:
-        assert self.response[self._createdAtKey] != ""
+    def assert_created_at(self) -> None:
+        assert self.response[self._created_at_key] != ""

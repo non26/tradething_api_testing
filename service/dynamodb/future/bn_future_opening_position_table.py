@@ -11,39 +11,41 @@ class BNFutureOpeningPositionTable:
         """
         get the item from the table by keys: symbol={symbol}, position_side={position_side}
         """
-        symbolKey = "symbol"
-        positionSideKey = "position_side"
-        response = self.table.get_item(Key={'symbol': keys[symbolKey].upper(), 'position_side': keys[positionSideKey].upper()})
-        if 'Item' in response:
-            self.content = response['Item']
+        symbol_key = "symbol"
+        position_side_key = "position_side"
+        response = self.table.get_item(Key={"symbol": keys[symbol_key].upper(), "position_side": keys[position_side_key].upper()})
+        if "Item" in response:
+            self.content = response["Item"]
+            return self.content
         else:
             self.content = {}
+            return self.content
 
-    def getClientIdField(self) -> str:
-        clientId = "client_id"
-        return self._getFieldFromContent(clientId)
+    def get_client_id_field(self) -> str:
+        client_id = "client_id"
+        return self._get_field_from_content(client_id)
     
-    def getSymbolField(self) -> str:
+    def get_symbol_field(self) -> str:
         symbol = "symbol"
-        return self._getFieldFromContent(symbol)
+        return self._get_field_from_content(symbol)
             
-    def getAmountBaseField(self) -> str:
-        amountBase = "amount_b"
-        return self._getFieldFromContent(amountBase)
+    def get_amount_base_field(self) -> str:
+        amount_base = "amount_b"
+        return self._get_field_from_content(amount_base)
 
-    def getPositionSideField(self) -> str:
-        positionSide = "position_side"
-        return self._getFieldFromContent(positionSide)
+    def get_position_side_field(self) -> str:
+        position_side = "position_side"
+        return self._get_field_from_content(position_side)
     
-    def getSideField(self) -> str:
+    def get_side_field(self) -> str:
         side = "side"
-        return self._getFieldFromContent(side)
+        return self._get_field_from_content(side)
     
-    def getCreatedAtField(self) -> str:
-        createdAt = "created_at"
-        return self._getFieldFromContent(createdAt)
+    def get_created_at_field(self) -> str:
+        created_at = "created_at"
+        return self._get_field_from_content(created_at)
         
-    def _getFieldFromContent(self, key: str) -> str:
+    def _get_field_from_content(self, key: str) -> str:
         if key in self.content:
             return self.content[key]
         else:

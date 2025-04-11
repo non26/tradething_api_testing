@@ -1,35 +1,33 @@
 from decimal import Decimal
 
 class BinanceFutureOpeningPositionTableAssertion:
-    _symbolKey = "symbol"
-    _sideKey = "side"
-    _amountBaseKey = "amount_b"
-    _positionSideKey = "position_side"
-    _createdAtKey = "created_at"
+    _symbol_key = "symbol"
+    _side_key = "side"
+    _amount_base_key = "amount_b"
+    _position_side_key = "position_side"
+    _created_at_key = "created_at"
     
-    def __init__(self, response: dict) -> None:
-        self.response = response
 
     def __init__(self) -> None:
         self.response = {}
 
-    def setResponse(self, response: dict) -> None:
+    def set_response(self, response: dict) -> None:
         self.response = response
 
-    def assertSymbol(self, symbol: str) -> None:
-        assert self.response[self._symbolKey] == symbol
+    def assert_symbol(self, symbol: str) -> None:
+        assert self.response[self._symbol_key] == symbol
 
-    def assertSide(self, side: str) -> None:
-        assert self.response[self._sideKey] == side
+    def assert_side(self, side: str) -> None:
+        assert self.response[self._side_key] == side
 
-    def assertQuantity(self, quantity: str) -> None:
-        assert Decimal(self.response[self._amountBaseKey]) == Decimal(quantity)
+    def assert_quantity(self, quantity: str) -> None:
+        assert Decimal(self.response[self._amount_base_key]) == Decimal(quantity)
 
-    def assertPositionSide(self, position_side: str) -> None:
-        assert self.response[self._positionSideKey] == position_side
+    def assert_position_side(self, position_side: str) -> None:
+        assert self.response[self._position_side_key] == position_side
 
-    def assertCreatedAt(self) -> None:
-        assert self.response[self._createdAtKey] != ""
+    def assert_created_at(self) -> None:
+        assert self.response[self._created_at_key] != ""
 
-    def assertEmpty(self) -> None:
+    def assert_empty(self) -> None:
         assert self.response == {}

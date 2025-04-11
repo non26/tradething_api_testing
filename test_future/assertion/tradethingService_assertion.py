@@ -1,21 +1,19 @@
-from requests import Response
+
 
 class TradethingFutureServiceAssertion:
-    def __init__(self, response: Response) -> None:
-        self.response: Response = response
 
     def __init__(self) -> None:
         pass
 
 
-    def assertHttp200(self, actual_status_code: int) -> None:
+    def assert_http_200(self, actual_status_code: int) -> None:
         assert actual_status_code == 200
 
-    def assertPosition(self, actual_id:str, expected_id:str, actual_symbol:str, expected_symbol:str):
+    def assert_position(self, actual_id:str, expected_id:str, actual_symbol:str, expected_symbol:str):
         assert actual_id == expected_id
         assert actual_symbol == expected_symbol
     
-    def assertCloseByIds(self,actual_response: dict, expected_response:dict):
+    def assert_close_by_ids(self,actual_response: dict, expected_response:dict):
         message_key = "message"
         code_key = "code"
         symbol_key = "symbol"

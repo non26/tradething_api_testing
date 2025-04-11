@@ -20,7 +20,7 @@ class TradethingFuture:
         response: Response = self._sendRequest(ids, path)
         return response
     
-    def _sendRequest(self, body: dict | list[dict], path: str) -> Response:
+    def _send_request(self, body: dict | list[dict], path: str) -> Response:
         response: Response = requests.post(self._trade_thing_url + path, json=body)
         return response
     

@@ -13,80 +13,80 @@ from assertion.binanceService_assertion import BinanceServiceAssertion
  
                 
 class OpenPosition:
-    _symbolKey = "symbol"
-    _clientIdKey = "client_id"
-    _amountBaseKey = "amount_b"
-    _positionSideKey = "position_side"
-    _sideKey = "side"
+    _symbol_key = "symbol"
+    _client_id_key = "client_id"
+    _amount_base_key = "amount_b"
+    _position_side_key = "position_side"
+    _side_key = "side"
     
     
     def __init__(self) -> None:
-        self.tradethingResponse: Response = None
+        self.tradething_response: Response = None
         # dynamodb attribute
-        self.bnFutureHistoryTable = BNFutureHistoryTable()
-        self.bnFutureOpeningPositionTable = BNFutureOpeningPositionTable()
-        self.bnFutureCryptoTable = BNFutureCryptoTable()
-        self.bnFutureCryptoTableBeforeAction: list[dict] = [] 
+        self.bn_future_history_table = BNFutureHistoryTable()
+        self.bn_future_opening_position_table = BNFutureOpeningPositionTable()
+        self.bn_future_crypto_table = BNFutureCryptoTable()
+        self.bn_future_crypto_table_before_action: list[dict] = [] 
         # binance service attribute
-        self.bnService = BnUMFuturesTrade()
+        self.bn_service = BnUMFuturesTrade()
         # trade attribute
-        self.tradethingFuture = TradethingFuture()
+        self.tradething_future = TradethingFuture()
         # assertion attribute
-        self.bnServiceAssertion = BinanceServiceAssertion()  
-        self.tradethingServiceAssertion = TradethingFutureServiceAssertion()
-        self.bnFutureHistoryTableAssert = BinanceFutureHistoryTableAssertion()
-        self.bnFutureOpeningPositionTableAssert = BinanceFutureOpeningPositionTableAssertion()
-        self.bnFutureCryptoTableAssert = BinanceFutureCyptoTableAssertion()
+        self.bn_service_assertion = BinanceServiceAssertion()  
+        self.tradething_service_assertion = TradethingFutureServiceAssertion()
+        self.bn_future_history_table_assert = BinanceFutureHistoryTableAssertion()
+        self.bn_future_opening_position_table_assert = BinanceFutureOpeningPositionTableAssertion()
+        self.bn_future_crypto_table_assert = BinanceFutureCyptoTableAssertion()
 
-    def arrangement(self, bodyList: list[dict]) :
-        for body in bodyList:
-            self.bnFutureCryptoTableBeforeAction.append(self.bnFutureCryptoTable.getPosition(body[self._symbolKey]))
+    def arrangement(self, body_list: list[dict]) :
+        for body in body_list:
+            self.bn_future_crypto_table_before_action.append(self.bn_future_crypto_table.get_position(body[self._symbol_key]))
 
     def action(self, func: Callable, body: dict | list[dict]) :
-        self.tradethingResponse = func(body)
+        self.tradething_response = func(body)
 
-    def tradethingServiceAssertions(self) -> TradethingFutureServiceAssertion:
+    def tradething_service_assertions(self) -> TradethingFutureServiceAssertion:
         # assert
-       return self.tradethingServiceAssertion
+        return self.tradething_service_assertion
 
-    def binanceServiceAssertions(self, symbol: str, request: dict):
-        response = self.bnService.get_position_inforamtion_v2(symbol=symbol)
-        self.bnServiceAssertion.setResponse(response)
+    def binance_service_assertions(self, symbol: str, request: dict):
+        response = self.bn_service.get_position_inforamtion_v2(symbol=symbol)
+        self.bn_service_assertion.set_response(response)
         # assert
-        self.bnServiceAssertion.assertPositionAmount(str(request[self._amountBaseKey]))
-        self.bnServiceAssertion.assertPositionSide(request[self._positionSideKey])
+        self.bn_service_assertion.assert_position_amount(str(request[self._amount_base_key]))
+        self.bn_service_assertion.assert_position_side(request[self._position_side_key])
 
-    def binanceFutureCryptoAssertions(self, symbol: str, request: dict, expected_long:int, expected_short:int):
-        response = self.bnFutureCryptoTable.get(symbol=symbol)
-        self.bnFutureCryptoTableAssert.setResponse(response)
+    def binance_future_crypto_assertions(self, symbol: str, request: dict, expected_long:int, expected_short:int):
+        respone = self.bn_future_crypto_table.get(symbol=symbol)
+        self.bn_future_crypto_table_assert.set_response(response)
         # assert
-        self.bnFutureCryptoAssert.assertSymbol(request[self._symbolKey])
-        self.bnFutureCryptoAssert.assertCountingLong(expected_long)
+        self.bn_future_crypto_table_assert.assert_symbol(request[self._symbol_key])
+        self.bn_future_crypto_table_assert.assert_counting_long(expected_long)
         self.bnFutureCryptoAssert.assertCountingShort(expected_short)
         
-    def binanceFutureOpeningPositionAssertions(self, symbol: str, positionSide: str, request: dict):
-        response = self.bnFutureOpeningPositionTable.get(symbol=symbol, position_side=positionSide)
-        self.bnFutureOpeningPositionTableAssert.setResponse(response)
+    def binance_future_opening_position_assertions(self, symbol: str, position_side: str, request: dict):
+        response = self.bn_future_opening_position_table.get(symbol=symbol, position_side=position_side)
+        self.bn_future_opening_position_table_assert.set_response(response)
         # assert
-        self.bnFutureOpeningPositionAssert.assertQuantity(str(request[self._amountBaseKey]))
-        self.bnFutureOpeningPositionAssert.assertPositionSide(request[self._positionSideKey])
-        self.bnFutureOpeningPositionAssert.assertCreatedAt()
+        self.bn_future_opening_position_table_assert.assert_quantity(str(request[self._amount_base_key]))
+        self.bn_future_opening_position_table_assert.assert_position_side(request[self._position_side_key])
+        self.bn_future_opening_position_table_assert.assert_created_at()
 
-    def binanceFutureOpeningPositionAssertionsForEmpty(self, symbol: str, positionSide: str):
-        response = self.bnFutureOpeningPositionTable.get(symbol=symbol, position_side=positionSide)
-        self.bnFutureOpeningPositionTableAssert.setResponse(response)
+    def binance_future_opening_position_assertions_for_empty(self, symbol: str, position_side: str):
+        response = self.bn_future_opening_position_table.get(symbol=symbol, position_side=position_side)
+        self.bn_future_opening_position_table_assert.set_response(response)
         # assert
-        self.bnFutureOpeningPositionAssert.assertEmpty()
+        self.bn_future_opening_position_table_assert.assert_empty()
 
     
-    def binanceFutureHistoryAssertions(self, clientId: str, request: dict):
-        response= self.bnFutureHistoryTable.get(client_id=clientId)
-        self.bnFutureHistoryTableAssert.setResponse(response)
+    def binance_future_history_assertions(self, client_id: str, request: dict):
+        response= self.bn_future_history_table.get(client_id=client_id)
+        self.bn_future_history_table_assert.set_response(response)
         # assert
-        self.bnFutureHistoryAssert.assertClientId(clientId)
-        self.bnFutureHistoryAssert.assertSymbol(request[self._symbolKey])
-        self.bnFutureHistoryAssert.assertPositionSide(request[self._positionSideKey])
-        self.bnFutureHistoryAssert.assertCreatedAt()
+        self.bn_future_history_table_assert.assert_client_id(client_id)
+        self.bn_future_history_table_assert.assert_symbol(request[self._symbol_key])
+        self.bn_future_history_table_assert.assert_position_side(request[self._position_side_key])
+        self.bn_future_history_table_assert.assert_created_at()
 
     
     
