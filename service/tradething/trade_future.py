@@ -8,16 +8,16 @@ class TradethingFuture:
 
     def single_position_request(self, body: dict) -> Response:
         path = "/position"
-        return self._sendRequest(body, path)
+        return self._send_request(body, path)
     
     def multiple_position_request(self, body: list[dict]) -> Response:
         path = "/positions"
-        response: Response = self._sendRequest(body, path)
+        response: Response = self._send_request(body, path)
         return response
     
     def close_by_ids_request(self, ids: dict) -> Response:
         path = "/close-by-ids"
-        response: Response = self._sendRequest(ids, path)
+        response: Response = self._send_request(ids, path)
         return response
     
     def _send_request(self, body: dict | list[dict], path: str) -> Response:
