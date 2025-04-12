@@ -1,5 +1,5 @@
 
-from dynamodb.dynamodb import DynamoDB, DynamoDBTable
+from service.dynamodb.init.dynamodb import DynamoDB, DynamoDBTable
 import boto3
 
 class BNFutureCryptoTable(DynamoDBTable):

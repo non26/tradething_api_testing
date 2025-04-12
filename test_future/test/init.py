@@ -1,17 +1,17 @@
 from requests import Response
 from typing import Callable      
-from service.dynamodb.dynamodb import DynamoDB
-from service.bn.binance import BinanceUMFutures
+from service.dynamodb.init.dynamodb import DynamoDB
+from service.bn.future.binance import BinanceUMFutures
 from service.bn.future.trade import BnUMFuturesTrade
 from service.dynamodb.future.bn_future_crypto_table import BNFutureCryptoTable
 from service.dynamodb.future.bn_future_history_table import BNFutureHistoryTable
 from service.dynamodb.future.bn_future_opening_position_table import BNFutureOpeningPositionTable
 from service.tradething.trade_future import TradethingFuture 
-from assertion.binanceFutureCryptoTable_assertion import BinanceFutureCyptoTableAssertion
-from assertion.binanceFutureOpeningPositionTable_assertion import BinanceFutureOpeningPositionTableAssertion
-from assertion.binanceFutureHistoryTable_assertion import BinanceFutureHistoryTableAssertion
-from assertion.tradethingService_assertion import TradethingFutureServiceAssertion
-from assertion.binanceService_assertion import BinanceServiceAssertion
+from test_future.assertion.binanceFutureCryptoTable_assertion import BinanceFutureCyptoTableAssertion
+from test_future.assertion.binanceFutureOpeningPositionTable_assertion import BinanceFutureOpeningPositionTableAssertion
+from test_future.assertion.binanceFutureHistoryTable_assertion import BinanceFutureHistoryTableAssertion
+from test_future.assertion.tradethingService_assertion import TradethingFutureServiceAssertion
+from test_future.assertion.binanceService_assertion import BinanceServiceAssertion
  
                 
 class OpenPosition:
@@ -48,6 +48,7 @@ class OpenPosition:
         self.tradething_response = func(body)
 
     def tradething_service_assertions(self) -> TradethingFutureServiceAssertion:
+        self.tradething_service_assertion.set_response(self.tradething_response)
         # assert
         return self.tradething_service_assertion
 

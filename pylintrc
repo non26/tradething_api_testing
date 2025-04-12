@@ -143,8 +143,12 @@ disable=R,
         wrong-import-order,
         xrange-builtin,
         zip-builtin-not-iterating,
+        
         trailing-whitespace,
         missing-final-newline,
+        line-too-long,
+        missing-module-docstring,
+        wrong-import-position,
 
 
 [REPORTS]

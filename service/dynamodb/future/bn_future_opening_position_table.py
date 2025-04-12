@@ -1,4 +1,4 @@
-from dynamodb.dynamodb import DynamoDB
+from service.dynamodb.init.dynamodb import DynamoDB
 
 
 class BNFutureOpeningPositionTable:

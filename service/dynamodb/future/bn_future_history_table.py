@@ -1,4 +1,4 @@
-from service.dynamodb.dynamodb import DynamoDB
+from service.dynamodb.init.dynamodb import DynamoDB
 
 
 class BNFutureHistoryTable:

@@ -1,4 +1,4 @@
-from bn.binance import BinanceUMFutures
+from service.bn.future.binance import BinanceUMFutures
 
 class BnUMFuturesTrade:
     def __init__(self, binance_um_futures: BinanceUMFutures):
