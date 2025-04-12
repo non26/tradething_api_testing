@@ -13,3 +13,6 @@ install:
 
 test-long:
 	python3 test_future/test_single_long_position.py
+
+init:
+	python3 test_future/test/init.py

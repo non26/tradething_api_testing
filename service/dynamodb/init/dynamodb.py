@@ -9,7 +9,7 @@ class DynamoDB:
             aws_access_key_id=os.getenv('DYNAMODB_SECRET_KEY'), 
             aws_secret_access_key=os.getenv('DYNAMODB_ACCESS_KEY'), 
             region_name=os.getenv('DYNAMODB_REGION'),
-            endpoint_url=os.getenv('DYNAMODB_ENDPOINT_URL'))
+            endpoint_url=os.getenv('DYNAMODB_ENDPOINT'))
 
     def table(self, table_name: str):
         return self.dynamodb.Table(table_name)

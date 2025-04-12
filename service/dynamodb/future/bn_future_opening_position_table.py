@@ -18,7 +18,14 @@ class BNFutureOpeningPositionTable:
             self.content = response["Item"]
             return self.content
         else:
-            self.content = {}
+            self.content = {
+                "symbol":"",
+                "position_side":"",
+                "client_id":"",
+                "amount_b":"",
+                "side":"",
+                "created_at":""
+            }
             return self.content
 
     def get_client_id_field(self) -> str:

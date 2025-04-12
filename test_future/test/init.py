@@ -40,9 +40,12 @@ class OpenPosition:
         self.bn_future_opening_position_table_assert = BinanceFutureOpeningPositionTableAssertion()
         self.bn_future_crypto_table_assert = BinanceFutureCyptoTableAssertion()
 
-    def arrangement(self, body_list: list[dict]) :
-        for body in body_list:
-            self.bn_future_crypto_table_before_action.append(self.bn_future_crypto_table.get_position(body[self._symbol_key]))
+    def arrangement(self, body: dict|list[dict]) :
+        if isinstance(body, dict):
+            self.bn_future_crypto_table_before_action.append(self.bn_future_crypto_table.get(symbol=body[self._symbol_key]))
+        else:
+            for b in body:
+                self.bn_future_crypto_table_before_action.append(self.bn_future_crypto_table.get(symbol=b[self._symbol_key]))
 
     def action(self, func: Callable, body: dict | list[dict]) :
         self.tradething_response = func(body)

@@ -17,7 +17,12 @@ class BNFutureHistoryTable:
             self.content = response["Item"]
             return self.content
         else:
-            self.content = {}
+            self.content = {
+                "client_id":"",
+                "symbol":"",
+                "position_side":"",
+                "created_at":""
+            }
             return self.content
 
 

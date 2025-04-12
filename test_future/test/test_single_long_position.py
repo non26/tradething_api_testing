@@ -9,7 +9,7 @@ bn_service = BinanceUMFutures()
 def test_buy_long_single_position():
     request = {
         "position_side": "LONG",
-        "side": "SELL",
+        "side": "BUY",
         "amount_b": "0.03",
         "symbol": "BTCUSDT",
         "client_id": "test_btc_long_1"

@@ -18,7 +18,11 @@ class BNFutureCryptoTable(DynamoDBTable):
             self.content = response["Item"]
             return self.content
         else:
-            self.content = {}
+            self.content = {
+                "symbol":"",
+                "counting_long":0,
+                "counting_short":0
+            }
             return self.content
 
     def get_symbol_field(self) -> str:
