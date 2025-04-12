@@ -49,6 +49,6 @@ class BNFutureCryptoTable(DynamoDBTable):
         else:
             return 0
               
-    # def deleteRecordBySymbol(self, symbol: str) -> None:
-    #     self.table.delete_item(Key={'symbol': symbol.upper()})
+    def deleteRecordBySymbol(self, symbol: str) -> None:
+        self.table.delete_item(Key={'symbol': symbol.upper()})
             

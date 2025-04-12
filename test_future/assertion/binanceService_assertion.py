@@ -1,7 +1,7 @@
 from decimal import Decimal
 class BinanceServiceAssertion:
-    _position_side_key = "position_side"
-    _position_amount_key = "position_amount"
+    _position_side_key = "positionSide"
+    _position_amount_key = "positionAmt"
 
     def __init__(self) -> None:
         self.response = None
@@ -10,8 +10,11 @@ class BinanceServiceAssertion:
         self.response = response
 
     def assert_position_side(self, expected_position_side: str) -> None:
-        assert self.response[self._position_side_key] == expected_position_side
+        position_side = self.response[self._position_side_key]
+        assert position_side == expected_position_side
 
     def assert_position_amount(self, expected_position_amount: str) -> None:
         actual_position_amount = self.response[self._position_amount_key]
-        assert Decimal(actual_position_amount) == Decimal(expected_position_amount)
+        actual = Decimal(actual_position_amount)
+        excepted = Decimal(expected_position_amount)
+        assert actual == excepted

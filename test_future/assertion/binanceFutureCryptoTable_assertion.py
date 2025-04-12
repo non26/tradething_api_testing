@@ -13,7 +13,9 @@ class BinanceFutureCyptoTableAssertion:
         assert self.response[self._symbol_key] == symbol
 
     def assert_counting_long(self, expected_counting_long: int) -> None:
-        assert self.response[self._counting_long_key] == expected_counting_long
+        actual = self.response[self._counting_long_key]
+        assert int(actual) == expected_counting_long
 
     def assert_counting_short(self, expected_counting_short: int) -> None:
-        assert self.response[self._counting_short_key] == expected_counting_short
+        actual = self.response[self._counting_short_key]
+        assert int(actual) == expected_counting_short

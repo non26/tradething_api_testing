@@ -16,3 +16,7 @@ test-long:
 
 init:
 	python3 test_future/test/init.py
+
+crypto-table:
+	python3 service/dynamodb/future/bn_future_crypto_table.py
+

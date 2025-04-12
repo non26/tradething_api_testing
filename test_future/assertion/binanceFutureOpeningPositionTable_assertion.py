@@ -30,4 +30,8 @@ class BinanceFutureOpeningPositionTableAssertion:
         assert self.response[self._created_at_key] != ""
 
     def assert_empty(self) -> None:
-        assert self.response == {}
+        assert self.response[self._symbol_key] == ""
+        assert self.response[self._side_key] == ""
+        assert self.response[self._amount_base_key] == ""
+        assert self.response[self._position_side_key] == ""
+        assert self.response[self._created_at_key] == ""

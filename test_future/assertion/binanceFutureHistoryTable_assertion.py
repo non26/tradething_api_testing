@@ -22,3 +22,6 @@ class BinanceFutureHistoryTableAssertion:
 
     def assert_created_at(self) -> None:
         assert self.response[self._created_at_key] != ""
+
+    def assert_created_at_empty(self) -> None:
+        assert self.response[self._created_at_key] == ""

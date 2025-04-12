@@ -51,13 +51,13 @@ class OpenPosition:
         self.tradething_response = func(body)
 
     def tradething_service_assertions(self) -> TradethingFutureServiceAssertion:
-        self.tradething_service_assertion.set_response(self.tradething_response)
+        self.tradething_service_assertion.set_response(self.tradething_response.json())
         # assert
         return self.tradething_service_assertion
 
     def binance_service_assertions(self, symbol: str, request: dict):
         response = self.bn_service.get_position_inforamtion_v2(symbol=symbol)
-        self.bn_service_assertion.set_response(response)
+        self.bn_service_assertion.set_response(response.get_by_symbol(symbol))
         # assert
         self.bn_service_assertion.assert_position_amount(str(request[self._amount_base_key]))
         self.bn_service_assertion.assert_position_side(request[self._position_side_key])
@@ -68,7 +68,7 @@ class OpenPosition:
         # assert
         self.bn_future_crypto_table_assert.assert_symbol(request[self._symbol_key])
         self.bn_future_crypto_table_assert.assert_counting_long(expected_long)
-        self.bnFutureCryptoAssert.assertCountingShort(expected_short)
+        self.bn_future_crypto_table_assert.assert_counting_short(expected_short)
         
     def binance_future_opening_position_assertions(self, symbol: str, position_side: str, request: dict):
         response = self.bn_future_opening_position_table.get(symbol=symbol, position_side=position_side)
@@ -85,14 +85,14 @@ class OpenPosition:
         self.bn_future_opening_position_table_assert.assert_empty()
 
     
-    def binance_future_history_assertions(self, client_id: str, request: dict):
+    def binance_future_history_assertions(self,client_id: str, expected: dict):
         response= self.bn_future_history_table.get(client_id=client_id)
         self.bn_future_history_table_assert.set_response(response)
         # assert
-        self.bn_future_history_table_assert.assert_client_id(client_id)
-        self.bn_future_history_table_assert.assert_symbol(request[self._symbol_key])
-        self.bn_future_history_table_assert.assert_position_side(request[self._position_side_key])
-        self.bn_future_history_table_assert.assert_created_at()
+        self.bn_future_history_table_assert.assert_client_id(expected[self._client_id_key])
+        self.bn_future_history_table_assert.assert_symbol(expected[self._symbol_key])
+        self.bn_future_history_table_assert.assert_position_side(expected[self._position_side_key])
+        self.bn_future_history_table_assert.assert_created_at_empty()
 
     
     
